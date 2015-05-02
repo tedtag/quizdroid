@@ -44,7 +44,7 @@ public class MainActivity extends ActionBarActivity {
         categoryList.setOnItemClickListener(new ListView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Go bring some other activity around the item selected
-                Toast.makeText(MainActivity.this, "You selected position " + position + " which is " + topicList[position], Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "You selected " + topicList[position], Toast.LENGTH_SHORT).show();
                 Intent next = new Intent(MainActivity.this, TopicActivity.class);
                 next.putExtra("topic", (Serializable) quizData.getTopic(position));
                 startActivity(next);

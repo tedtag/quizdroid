@@ -3,6 +3,7 @@ package edu.washington.tedtag.quizdroid;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -24,9 +25,9 @@ public class TopicActivity extends ActionBarActivity {
         TextView topicDescription = (TextView) findViewById(R.id.topic_description);
         TextView questionCount = (TextView) findViewById(R.id.topic_question_count);
 
-        topicName.setText(thisTopic.getName());
-        topicDescription.setText(thisTopic.getDescription());
-        questionCount.setText("1");
+        topicName.setText("Topic: " + thisTopic.getName());
+        topicDescription.setText("Description: " + thisTopic.getDescription());
+        questionCount.setText("Number of questions: " + thisTopic.getQuestions().size());
     }
 
 

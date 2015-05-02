@@ -60,12 +60,14 @@ public class QuizTopicCollection {
         ArrayList<QuizTopic> quizTopics = new ArrayList<>();
         String currentName;
         String currentDescription;
+        ArrayList<QuizQuestion> currentQuestions;
 
         reader.beginArray();
         while (reader.hasNext()) {
             reader.beginObject();
             currentName = "";
             currentDescription = "";
+            currentQuestions = new ArrayList<QuizQuestion>();
 
             while (reader.hasNext()) {
                 String name = reader.nextName();
@@ -73,15 +75,72 @@ public class QuizTopicCollection {
                     currentName = reader.nextString();
                 } else if (name.equals("Description")) {
                     currentDescription = reader.nextString();
+                } else if (name.equals("Questions")) {
+                    currentQuestions = generateQuestionsFromJSONArray(reader);
                 } else {
                     reader.skipValue();
                 }
             }
             reader.endObject();
-            quizTopics.add(new QuizTopic(currentName, currentDescription));
+            quizTopics.add(new QuizTopic(currentName, currentDescription, currentQuestions));
         }
         reader.endArray();
 
         return quizTopics;
+    }
+
+    private ArrayList<QuizQuestion> generateQuestionsFromJSONArray (JsonReader reader) throws IOException {
+        ArrayList<QuizQuestion> questionList = new ArrayList<>();
+        String currentQuestion;
+        ArrayList<String[]> currentChoices;
+        String currentAnswer;
+
+        reader.beginArray();
+        while (reader.hasNext()) {
+            reader.beginObject();
+            currentQuestion = "";
+            currentChoices = new ArrayList<String[]>();
+            currentAnswer = "";
+
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                if (name.equals("Question")) {
+                    currentQuestion = reader.nextString();
+                } else if (name.equals("Choices")) {
+                    // todo: figure out how to dynamically add choices
+                    String[] labels = {"a", "b", "c", "d"};
+                    String[] values = {"", "", "", ""};
+
+                    reader.beginObject();
+                    while (reader.hasNext()) {
+                        String choice = reader.nextName();
+                        Log.i("CHOICE", choice);
+                        if (choice.equals("a")) {
+                            values[0] = reader.nextString();
+                        } else if (choice.equals("b")) {
+                            values[1] = reader.nextString();
+                        } else if (choice.equals("c")) {
+                            values[2] = reader.nextString();
+                        } else if (choice.equals("d")) {
+                            values[3] = reader.nextString();
+                        } else {
+                            reader.skipValue();
+                        }
+                    }
+                    reader.endObject();
+                    currentChoices.add(labels);
+                    currentChoices.add(values);
+                } else if (name.equals("Answers")) {
+                    currentAnswer = reader.nextString();
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+            questionList.add(new QuizQuestion(currentQuestion, currentChoices, currentAnswer));
+        }
+        reader.endArray();
+
+        return questionList;
     }
 }
