@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.io.Serializable;
 
 
 public class TopicActivity extends ActionBarActivity {
+    public QuizTopic thisTopic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,8 +22,9 @@ public class TopicActivity extends ActionBarActivity {
         setContentView(R.layout.activity_topic);
 
         Intent launchingIntent = getIntent();
-        QuizTopic thisTopic = (QuizTopic) launchingIntent.getSerializableExtra("topic");
+        thisTopic = (QuizTopic) launchingIntent.getSerializableExtra("topic");
 
+        Button begin = (Button) findViewById(R.id.topic_btn_begin);
         TextView topicName = (TextView) findViewById(R.id.topic_name);
         TextView topicDescription = (TextView) findViewById(R.id.topic_description);
         TextView questionCount = (TextView) findViewById(R.id.topic_question_count);
@@ -28,6 +32,16 @@ public class TopicActivity extends ActionBarActivity {
         topicName.setText("Topic: " + thisTopic.getName());
         topicDescription.setText("Description: " + thisTopic.getDescription());
         questionCount.setText("Number of questions: " + thisTopic.getQuestions().size());
+
+        begin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(TopicActivity.this, QuestionActivity.class);
+                next.putExtra("topic", (Serializable) thisTopic);
+                next.putExtra("statistics", new int[] {0,0});
+                startActivity(next);
+            }
+        });
     }
 
 

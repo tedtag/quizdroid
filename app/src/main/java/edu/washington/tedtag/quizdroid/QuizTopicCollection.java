@@ -114,7 +114,6 @@ public class QuizTopicCollection {
                     reader.beginObject();
                     while (reader.hasNext()) {
                         String choice = reader.nextName();
-                        Log.i("CHOICE", choice);
                         if (choice.equals("a")) {
                             values[0] = reader.nextString();
                         } else if (choice.equals("b")) {
@@ -130,7 +129,7 @@ public class QuizTopicCollection {
                     reader.endObject();
                     currentChoices.add(labels);
                     currentChoices.add(values);
-                } else if (name.equals("Answers")) {
+                } else if (name.equals("Answer")) {
                     currentAnswer = reader.nextString();
                 } else {
                     reader.skipValue();
