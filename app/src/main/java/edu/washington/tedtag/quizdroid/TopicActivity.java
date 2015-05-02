@@ -1,9 +1,13 @@
 package edu.washington.tedtag.quizdroid;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
+
+import java.io.Serializable;
 
 
 public class TopicActivity extends ActionBarActivity {
@@ -12,6 +16,17 @@ public class TopicActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_topic);
+
+        Intent launchingIntent = getIntent();
+        QuizTopic thisTopic = (QuizTopic) launchingIntent.getSerializableExtra("topic");
+
+        TextView topicName = (TextView) findViewById(R.id.topic_name);
+        TextView topicDescription = (TextView) findViewById(R.id.topic_description);
+        TextView questionCount = (TextView) findViewById(R.id.topic_question_count);
+
+        topicName.setText(thisTopic.getName());
+        topicDescription.setText(thisTopic.getDescription());
+        questionCount.setText("1");
     }
 
 

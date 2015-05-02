@@ -1,11 +1,12 @@
 package edu.washington.tedtag.quizdroid;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Ted on 5/1/2015.
  */
-public class QuizTopic {
+public class QuizTopic implements Serializable {
     private String name;
     private String description;
 

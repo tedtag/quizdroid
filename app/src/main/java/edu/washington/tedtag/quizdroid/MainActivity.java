@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
@@ -45,7 +46,8 @@ public class MainActivity extends ActionBarActivity {
                 // Go bring some other activity around the item selected
                 Toast.makeText(MainActivity.this, "You selected position " + position + " which is " + topicList[position], Toast.LENGTH_SHORT).show();
                 Intent next = new Intent(MainActivity.this, TopicActivity.class);
-                // next.putExtra("thisTopic", (String[]) topicDetails.get(position));
+                next.putExtra("topic", (Serializable) quizData.getTopic(position));
+                startActivity(next);
             }
         });
     }

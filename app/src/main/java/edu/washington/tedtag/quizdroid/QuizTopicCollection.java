@@ -24,6 +24,11 @@ public class QuizTopicCollection {
         this.topics = new ArrayList<>(t);
     }
 
+    /* @returns a quiz topic at index i */
+    public QuizTopic getTopic(int i) {
+        return this.topics.get(i);
+    }
+
     /* @returns a list of topic names */
     public String[] generateTopicList () {
         String[] topics = new String[this.topics.size()];
