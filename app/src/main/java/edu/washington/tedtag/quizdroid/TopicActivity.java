@@ -14,7 +14,7 @@ import java.io.Serializable;
 
 
 public class TopicActivity extends ActionBarActivity {
-    public QuizTopic thisTopic;
+    private QuizTopic thisTopic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,24 +24,17 @@ public class TopicActivity extends ActionBarActivity {
         Intent launchingIntent = getIntent();
         thisTopic = (QuizTopic) launchingIntent.getSerializableExtra("topic");
 
-        Button begin = (Button) findViewById(R.id.topic_btn_begin);
-        TextView topicName = (TextView) findViewById(R.id.topic_name);
-        TextView topicDescription = (TextView) findViewById(R.id.topic_description);
-        TextView questionCount = (TextView) findViewById(R.id.topic_question_count);
+        if (savedInstanceState == null) {
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("topic", thisTopic);
 
-        topicName.setText("Topic: " + thisTopic.getName());
-        topicDescription.setText("Description: " + thisTopic.getDescription());
-        questionCount.setText("Number of questions: " + thisTopic.getQuestions().size());
+            TopicFragment topicFrag = new TopicFragment();
+            topicFrag.setArguments(bundle);
 
-        begin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent next = new Intent(TopicActivity.this, QuestionActivity.class);
-                next.putExtra("topic", (Serializable) thisTopic);
-                next.putExtra("statistics", new int[] {0,0});
-                startActivity(next);
-            }
-        });
+            getSupportFragmentManager().beginTransaction()
+                .add(R.id.container, topicFrag)
+                    .commit();
+        }
     }
 
 

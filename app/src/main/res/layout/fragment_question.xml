@@ -1,0 +1,56 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="edu.washington.tedtag.quizdroid.QuestionFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView android:text="Quiz Title" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/question_title"/>
+            <TextView android:text="Question N" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/question_label"/>
+            <TextView android:text="This is a question" android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/question_text"/>
+            <RadioGroup
+                android:id="@+id/radio_group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RadioButton
+                    android:id="@+id/radio_choice_a"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="A" />
+                <RadioButton
+                    android:id="@+id/radio_choice_b"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="B" />
+                <RadioButton
+                    android:id="@+id/radio_choice_c"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="C" />
+                <RadioButton
+                    android:id="@+id/radio_choice_d"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="D" />
+            </RadioGroup>
+            <Button
+                android:enabled="false"
+                android:id="@+id/question_btn_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+</FrameLayout>

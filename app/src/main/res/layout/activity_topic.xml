@@ -6,23 +6,9 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="edu.washington.tedtag.quizdroid.TopicActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <FrameLayout
+        xmlns:tools="http://schemas.android.com/tools" android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView android:text="Topic Title" android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/topic_name" />
-        <TextView android:text="Description" android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/topic_description" />
-        <TextView android:text="Number of Questions" android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/topic_question_count" />
-        <Button
-            android:id="@+id/topic_btn_begin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Begin"/>
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        tools:context=".TopicActivity" tools:ignore="MergeRootFrame" />
 </RelativeLayout>
