@@ -92,6 +92,7 @@ public class QuestionFragment extends Fragment {
                 answerFrag.setArguments(bundle);
 
                 getFragmentManager().beginTransaction()
+                        .setCustomAnimations( R.anim.slide_in_right, 0, 0, R.anim.slide_out_left)
                         .add(R.id.container, answerFrag)
                         .commit();
 

@@ -1,6 +1,7 @@
 package edu.washington.tedtag.quizdroid;
 
 import android.content.Intent;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,8 +33,9 @@ public class TopicActivity extends ActionBarActivity {
             topicFrag.setArguments(bundle);
 
             getSupportFragmentManager().beginTransaction()
+                .setCustomAnimations( R.anim.slide_in_right, 0, 0, R.anim.slide_out_left)
                 .add(R.id.container, topicFrag)
-                    .commit();
+                .commit();
         }
     }
 
