@@ -12,7 +12,7 @@ import java.util.ArrayList;
 /**
  * Created by Ted on 5/1/2015.
  */
-public class QuizTopicCollection {
+public class QuizTopicCollection implements QuizApp.TopicRepository {
     private ArrayList<QuizTopic> topics;
 
     public QuizTopicCollection () {
@@ -29,8 +29,13 @@ public class QuizTopicCollection {
         return this.topics.get(i);
     }
 
+    /* @returns the array list of topics */
+    public ArrayList<QuizTopic> getAllTopic() {
+        return this.topics;
+    }
+
     /* @returns a list of topic names */
-    public String[] generateTopicList () {
+    public String[] getAllTopicNames() {
         String[] topics = new String[this.topics.size()];
 
         for (int i = 0; i < this.topics.size(); i++) {

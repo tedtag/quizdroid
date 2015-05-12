@@ -35,7 +35,7 @@ public class MainActivity extends ActionBarActivity {
             Toast.makeText(MainActivity.this, "Error: IO Exception", Toast.LENGTH_SHORT).show();
         }
 
-        topicList = quizData.generateTopicList();
+        topicList = quizData.getAllTopicNames();
 
         categoryList = (ListView) findViewById(R.id.lst_category);
         ArrayAdapter<String> items = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, topicList);
