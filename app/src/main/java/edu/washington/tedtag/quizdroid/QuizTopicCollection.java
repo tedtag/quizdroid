@@ -50,12 +50,7 @@ public class QuizTopicCollection implements QuizApp.TopicRepository {
     public void generateFromJSON (InputStream is) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(is, "UTF-8"));
         try {
-            reader.beginObject();
-            String name = reader.nextName();
-            if (name.equals("Data")) {
-                this.topics = generateTopicsFromJSONArray(reader);
-            }
-            reader.endObject();
+            this.topics = generateTopicsFromJSONArray(reader);
         } finally{
             reader.close();
         }
@@ -76,11 +71,11 @@ public class QuizTopicCollection implements QuizApp.TopicRepository {
 
             while (reader.hasNext()) {
                 String name = reader.nextName();
-                if (name.equals("Name")) {
+                if (name.equals("title")) {
                     currentName = reader.nextString();
-                } else if (name.equals("Description")) {
+                } else if (name.equals("desc")) {
                     currentDescription = reader.nextString();
-                } else if (name.equals("Questions")) {
+                } else if (name.equals("questions")) {
                     currentQuestions = generateQuestionsFromJSONArray(reader);
                 } else {
                     reader.skipValue();
@@ -109,33 +104,40 @@ public class QuizTopicCollection implements QuizApp.TopicRepository {
 
             while (reader.hasNext()) {
                 String name = reader.nextName();
-                if (name.equals("Question")) {
+                if (name.equals("text")) {
                     currentQuestion = reader.nextString();
-                } else if (name.equals("Choices")) {
+                } else if (name.equals("answers")) {
                     // todo: figure out how to dynamically add choices
                     String[] labels = {"a", "b", "c", "d"};
                     String[] values = {"", "", "", ""};
 
-                    reader.beginObject();
+                    reader.beginArray();
                     while (reader.hasNext()) {
-                        String choice = reader.nextName();
-                        if (choice.equals("a")) {
-                            values[0] = reader.nextString();
-                        } else if (choice.equals("b")) {
-                            values[1] = reader.nextString();
-                        } else if (choice.equals("c")) {
-                            values[2] = reader.nextString();
-                        } else if (choice.equals("d")) {
-                            values[3] = reader.nextString();
-                        } else {
-                            reader.skipValue();
-                        }
+                      values[0] = reader.nextString();
+                      values[1] = reader.nextString();
+                      values[2] = reader.nextString();
+                      values[3] = reader.nextString();
                     }
-                    reader.endObject();
+                    reader.endArray();
                     currentChoices.add(labels);
                     currentChoices.add(values);
-                } else if (name.equals("Answer")) {
-                    currentAnswer = reader.nextString();
+                } else if (name.equals("answer")) {
+                    /* Switch case to convert int answers into letter answers because I
+                     * don't feel like re-doing my previous code */
+                     switch (reader.nextString()) {
+                         case "1":
+                             currentAnswer = "a";
+                             break;
+                         case "2":
+                             currentAnswer = "b";
+                             break;
+                         case "3":
+                             currentAnswer = "c";
+                             break;
+                         case "4":
+                             currentAnswer = "d";
+                             break;
+                     }
                 } else {
                     reader.skipValue();
                 }

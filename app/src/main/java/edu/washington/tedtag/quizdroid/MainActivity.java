@@ -1,6 +1,7 @@
 package edu.washington.tedtag.quizdroid;
 
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -28,8 +29,10 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AssetManager assetManager = getAssets();
+
         try {
-            quizData.generateFromJSON(this.getResources().openRawResource(R.raw.data));
+            quizData.generateFromJSON(assetManager.open("questions.json"));
         } catch(IOException e){
             Toast.makeText(MainActivity.this, "Error: IO Exception", Toast.LENGTH_SHORT).show();
         }
