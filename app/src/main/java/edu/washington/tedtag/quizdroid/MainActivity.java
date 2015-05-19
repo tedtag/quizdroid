@@ -68,6 +68,8 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent next = new Intent(MainActivity.this, PreferencesActivity.class);
+            startActivity(next);
             return true;
         }
 
